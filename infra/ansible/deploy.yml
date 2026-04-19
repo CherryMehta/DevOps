@@ -1,0 +1,37 @@
+- hosts: server
+  become: yes
+
+  tasks:
+
+    - name: Update packages
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull backend image
+      shell: docker pull cherrymehta07/backend:latest
+
+    - name: Pull frontend image
+      shell: docker pull cherrymehta07/frontend:latest
+
+    - name: Stop old backend container
+      shell: docker rm -f backend || true
+
+    - name: Stop old frontend container
+      shell: docker rm -f frontend || true
+
+    - name: Run backend container
+      shell: docker run -d --name backend -p 8000:8000 cherrymehta07/backend:latest
+
+    - name: Run frontend container
+      shell: docker run -d --name frontend -p 3000:80 cherrymehta07/frontend:latest
