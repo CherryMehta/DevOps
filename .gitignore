@@ -1,5 +1,16 @@
-node_modules/
 .terraform/
+*.tfstate
+*.tfstate.backup
+node_modules/
 dist/
 .env
-*.log
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Env files
+.env
+
+# (you said no dist, so skipping it)
