@@ -9,8 +9,7 @@ jobs:
 deploy:
 runs-on: ubuntu-latest
 
-```
-steps:
+```steps:
   # 📥 Checkout repo
   - name: Checkout code
     uses: actions/checkout@v3
