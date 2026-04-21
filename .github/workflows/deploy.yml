@@ -21,12 +21,12 @@ jobs:
 
       - name: Build & Push Backend
         run: |
-         docker build -t cherrymehta07/backend:latest -f infra/Dockerfile.backend ./real_estate_ai
-         docker push cherrymehta07/backend:latest
+          docker build -t cherrymehta07/backend:latest ./real_estate_ai
+          docker push cherrymehta07/backend:latest
 
       - name: Build & Push Frontend
         run: |
-         docker build -t cherrymehta07/frontend:latest -f infra/Dockerfile.frontend ./src
+         docker build -t cherrymehta07/frontend:latest ./src
          docker push cherrymehta07/frontend:latest
 
       # 🚀 Deploy to EC2
