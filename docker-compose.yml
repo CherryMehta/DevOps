@@ -14,13 +14,3 @@ ports:
 - "80:80"
 depends_on:
 - backend
-
-mongodb:
-    image: mongo:6
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-
-volumes:
-  mongo_data:
