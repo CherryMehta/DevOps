@@ -1,6 +1,6 @@
 # from pymongo import MongoClient
 
-# client = MongoClient("mongodb://localhost:27017")
+# client = MongoClient("mongodb://http://13.204.14.38/:27017/realestate")
 
 # db = client["real_estate_db"]
 # properties_collection = db["properties"]
@@ -10,7 +10,7 @@
 
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb://http://13.204.14.38/:27017/realestate")
 db = client["real_estate_db"]
 
 #  CLEAN collection (used by AI later)
