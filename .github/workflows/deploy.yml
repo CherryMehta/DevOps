@@ -49,7 +49,7 @@ jobs:
             GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
             EOF
 
-            cd infra
+            cd /home/ubuntu/Devops
 
             sudo docker compose down || true
             sudo docker compose pull
