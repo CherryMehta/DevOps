@@ -46,7 +46,7 @@ jobs:
             git pull origin main
 
             # Add environment variable
-            echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" > backend/.env
+            echo "GROQ_API_KEY=${{ secrets.GEMINI_API_KEY }}" > real_estate-ai/.env
 
             cd infra
 
