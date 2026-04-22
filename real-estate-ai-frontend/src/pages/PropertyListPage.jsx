@@ -22,34 +22,73 @@ export const PropertyListPage = () => {
   const { addSavedProperty, removeSavedProperty, isSaved } = useSavedProperties()
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      setIsLoading(true)
-      try {
-        const nextFilters = {
-          ...filters,
-          page,
-        }
-        const cleanedFilters = Object.fromEntries(
-          Object.entries(nextFilters).filter(([, value]) => value !== '' && value != null)
-        )
-        setSearchParams(
-          cleanedFilters
-        )
-        const data =
-          type === 'buy'
-            ? await propertyService.getBuyProperties(cleanedFilters)
-            : await propertyService.getRentProperties(cleanedFilters)
-        setProperties(data.properties || [])
-      } catch (error) {
-        toast.error('Failed to fetch properties')
-        console.error(error)
-      } finally {
-        setIsLoading(false)
-      }
+  const fetchProperties = async () => {
+    setIsLoading(true)
+
+    const nextFilters = {
+      ...filters,
+      page,
     }
 
-    fetchProperties()
-  }, [filters, page, type])
+    const cleanedFilters = Object.fromEntries(
+      Object.entries(nextFilters).filter(([, value]) => value !== '' && value != null)
+    )
+
+    setSearchParams(cleanedFilters)
+
+    try {
+      const data =
+        type === 'buy'
+          ? await propertyService.getBuyProperties(cleanedFilters)
+          : await propertyService.getRentProperties(cleanedFilters)
+
+      setProperties(data.properties || [])
+    } catch (error) {
+      console.error(error)
+
+      // 🔥 Dummy fallback data
+      const dummyProperties = [
+        {
+          id: "1",
+          project_name: "Skyline Residency",
+          city: "Indore",
+          locality: "Vijay Nagar",
+          price: 4500000,
+          rent_per_month: 15000,
+          bhk: 2,
+          area_sqft: 1200,
+        },
+        {
+          id: "2",
+          project_name: "Green Valley Homes",
+          city: "Indore",
+          locality: "Palasia",
+          price: 6500000,
+          rent_per_month: 22000,
+          bhk: 3,
+          area_sqft: 1600,
+        },
+        {
+          id: "3",
+          project_name: "Urban Heights",
+          city: "Mumbai",
+          locality: "Andheri",
+          price: 12000000,
+          rent_per_month: 45000,
+          bhk: 2,
+          area_sqft: 900,
+        },
+      ]
+
+      setProperties(dummyProperties)
+      toast.error('Backend failed — showing demo data')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  fetchProperties()
+}, [filters, page, type])
 
   const handleSaveProperty = (property) => {
     if (isSaved(property.id)) {
